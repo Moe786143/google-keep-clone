@@ -13,11 +13,11 @@
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="navbar-left">
-      <button class="menu-btn" id="menuBtn">
+      <button class="icon-btn" id="menuBtn">
         <i class="fa-solid fa-bars"></i>
       </button>
       <img src="https://ssl.gstatic.com/keep/icon_2020q4v2_128.png" alt="Keep" class="keep-logo" />
-      <span class="keep-title">Keep</span>
+      <span class="keep-title" id="pageTitle">Keep</span>
     </div>
     <div class="navbar-center">
       <div class="search-bar">
@@ -45,20 +45,16 @@
   <!-- SIDEBAR -->
   <div class="layout">
     <aside class="sidebar" id="sidebar">
-      <a href="#" class="sidebar-item active">
+      <a href="#" class="sidebar-item active" id="notesNavItem" data-view="notes">
         <i class="fa-regular fa-lightbulb"></i>
         <span>Notes</span>
       </a>
-      <a href="#" class="sidebar-item">
+      <a href="#" class="sidebar-item" id="remindersNavItem" data-view="reminders">
         <i class="fa-solid fa-bell"></i>
         <span>Reminders</span>
       </a>
-      <a href="#" class="sidebar-item">
-        <i class="fa-solid fa-tag"></i>
-        <span>Labels</span>
-      </a>
-      <a href="#" class="sidebar-item">
-        <i class="fa-solid fa-archive"></i>
+      <a href="#" class="sidebar-item" id="archiveNavItem" data-view="archive">
+        <i class="fa-solid fa-box-archive"></i>
         <span>Archive</span>
       </a>
       <a href="#" class="sidebar-item">
@@ -68,70 +64,95 @@
     </aside>
 
     <!-- MAIN CONTENT -->
-    <main class="main-content">
+    <main class="main-content" id="mainContent">
 
-      <!-- CREATE NOTE -->
-      <div class="create-note-container">
-        <div class="create-note" id="createNote">
-          <div class="create-note-collapsed" id="createNoteCollapsed">
-            <input type="text" id="quickNoteInput" placeholder="Take a note..." />
-            <div class="create-note-icons">
-              <button class="icon-btn" title="New list">
-                <i class="fa-solid fa-list-check"></i>
-              </button>
-              <button class="icon-btn" title="New note with drawing">
-                <i class="fa-solid fa-paintbrush"></i>
-              </button>
-              <button class="icon-btn" title="New note with image">
-                <i class="fa-regular fa-image"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="create-note-expanded" id="createNoteExpanded" hidden>
-            <input type="text" id="noteTitleInput" placeholder="Title" class="note-title-input" />
-            <textarea id="noteContentInput" placeholder="Take a note..." rows="3"></textarea>
-            <div class="char-counter" id="charCounter">0 / 500</div>
-            <div class="create-note-actions">
-              <div class="note-color-picker">
-                <button class="color-dot" data-color="#ffffff" style="background:#ffffff" title="White"></button>
-                <button class="color-dot" data-color="#faafa8" style="background:#faafa8" title="Flamingo"></button>
-                <button class="color-dot" data-color="#f28b82" style="background:#f28b82" title="Tomato"></button>
-                <button class="color-dot" data-color="#fbbc04" style="background:#fbbc04" title="Banana"></button>
-                <button class="color-dot" data-color="#fff475" style="background:#fff475" title="Lemon"></button>
-                <button class="color-dot" data-color="#ccff90" style="background:#ccff90" title="Sage"></button>
-                <button class="color-dot" data-color="#a8dab5" style="background:#a8dab5" title="Basil"></button>
-                <button class="color-dot" data-color="#aecbfa" style="background:#aecbfa" title="Peacock"></button>
-                <button class="color-dot" data-color="#d7aefb" style="background:#d7aefb" title="Grape"></button>
-              </div>
-              <div class="create-note-buttons">
-                <button class="pin-btn" id="pinNoteBtn" title="Pin note">
-                  <i class="fa-regular fa-thumbtack"></i>
+      <!-- NOTES VIEW -->
+      <div id="notesView">
+        <!-- CREATE NOTE -->
+        <div class="create-note-container">
+          <div class="create-note" id="createNote">
+            <div class="create-note-collapsed" id="createNoteCollapsed">
+              <input type="text" id="quickNoteInput" placeholder="Take a note..." />
+              <div class="create-note-icons">
+                <button class="icon-btn" title="New list">
+                  <i class="fa-solid fa-list-check"></i>
                 </button>
-                <button class="close-btn" id="closeNoteBtn">Close</button>
-                <button class="add-btn" id="addNoteBtn">Add Note</button>
+                <button class="icon-btn" title="New note with drawing">
+                  <i class="fa-solid fa-paintbrush"></i>
+                </button>
+                <button class="icon-btn" title="New note with image">
+                  <i class="fa-regular fa-image"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="create-note-expanded" id="createNoteExpanded" hidden>
+              <input type="text" id="noteTitleInput" placeholder="Title" class="note-title-input" />
+              <textarea id="noteContentInput" placeholder="Take a note..." rows="3"></textarea>
+              <div class="char-counter" id="charCounter">0 / 500</div>
+              <div class="create-note-actions">
+                <div class="note-color-picker">
+                  <button class="color-dot" data-color="#ffffff" style="background:#ffffff" title="White"></button>
+                  <button class="color-dot" data-color="#faafa8" style="background:#faafa8" title="Flamingo"></button>
+                  <button class="color-dot" data-color="#f28b82" style="background:#f28b82" title="Tomato"></button>
+                  <button class="color-dot" data-color="#fbbc04" style="background:#fbbc04" title="Banana"></button>
+                  <button class="color-dot" data-color="#fff475" style="background:#fff475" title="Lemon"></button>
+                  <button class="color-dot" data-color="#ccff90" style="background:#ccff90" title="Sage"></button>
+                  <button class="color-dot" data-color="#a8dab5" style="background:#a8dab5" title="Basil"></button>
+                  <button class="color-dot" data-color="#aecbfa" style="background:#aecbfa" title="Peacock"></button>
+                  <button class="color-dot" data-color="#d7aefb" style="background:#d7aefb" title="Grape"></button>
+                </div>
+                <div class="create-note-buttons">
+                  <button class="pin-btn" id="pinNoteBtn" title="Pin note">
+                    <i class="fa-regular fa-thumbtack"></i>
+                  </button>
+                  <button class="close-btn" id="closeNoteBtn">Close</button>
+                  <button class="add-btn" id="addNoteBtn">Add Note</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- PINNED NOTES -->
+        <div class="notes-section" id="pinnedSection" hidden>
+          <h3 class="section-label">PINNED</h3>
+          <div class="notes-grid" id="pinnedGrid"></div>
+        </div>
+
+        <!-- OTHER NOTES -->
+        <div class="notes-section" id="othersSection">
+          <h3 class="section-label" id="othersLabel" hidden>OTHERS</h3>
+          <div class="notes-grid" id="notesGrid"></div>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div class="empty-state" id="emptyState">
+          <i class="fa-regular fa-lightbulb"></i>
+          <p>Notes you add appear here</p>
+        </div>
       </div>
 
-      <!-- PINNED NOTES -->
-      <div class="notes-section" id="pinnedSection" hidden>
-        <h3 class="section-label">PINNED</h3>
-        <div class="notes-grid" id="pinnedGrid"></div>
+      <!-- ARCHIVE VIEW -->
+      <div id="archiveView" hidden>
+        <div class="notes-section">
+          <div class="notes-grid" id="archiveGrid"></div>
+        </div>
+        <div class="empty-state" id="archiveEmptyState">
+          <i class="fa-solid fa-box-archive"></i>
+          <p>No archived notes</p>
+        </div>
       </div>
 
-      <!-- OTHER NOTES -->
-      <div class="notes-section" id="othersSection">
-        <h3 class="section-label" id="othersLabel" hidden>OTHERS</h3>
-        <div class="notes-grid" id="notesGrid"></div>
-      </div>
-
-      <!-- EMPTY STATE -->
-      <div class="empty-state" id="emptyState">
-        <i class="fa-regular fa-lightbulb"></i>
-        <p>Notes you add appear here</p>
+      <!-- REMINDERS VIEW -->
+      <div id="remindersView" hidden>
+        <div class="notes-section">
+          <div class="notes-grid" id="remindersGrid"></div>
+        </div>
+        <div class="empty-state" id="remindersEmptyState">
+          <i class="fa-solid fa-bell"></i>
+          <p>Notes with reminders appear here</p>
+        </div>
       </div>
 
     </main>
